@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Lenis from "lenis";
+import Hero from "./components/Hero";
 
 const NAV_LINKS = ["Home", "About", "Products", "Certifications", "Why Us", "Contact"];
 
 const PRODUCTS = [
   {
     name: "Makhana (Fox Nuts)",
-    image: "https://loremflickr.com/800/600/seeds,food?lock=10",
+    image: "/makhana.png",
     color: "from-amber-50 to-amber-100",
     accent: "#d97706",
     desc: "Hand-harvested lotus seeds from Bihar's pristine lakes — crunchy, nutritious, and globally prized.",
@@ -21,7 +23,7 @@ const PRODUCTS = [
   },
   {
     name: "Elephant Foot Yam",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Amorphophallus_Paeoniifolius_g.jpg/960px-Amorphophallus_Paeoniifolius_g.jpg",
+    image: "/elephant-yam.jpg",
     color: "from-stone-50 to-stone-100",
     accent: "#78716c",
     desc: "Premium Suran cultivated in rich Indian soil — a versatile root vegetable gaining global demand.",
@@ -37,7 +39,7 @@ const PRODUCTS = [
   },
   {
     name: "Drumstick (Moringa)",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/DrumstickFlower.jpg/960px-DrumstickFlower.jpg",
+    image: "/drumstick.png",
     color: "from-green-50 to-emerald-100",
     accent: "#059669",
     desc: "Nutrient-dense Moringa pods — nature's superfood grown sustainably across India's heartland.",
@@ -45,7 +47,7 @@ const PRODUCTS = [
   },
   {
     name: "Green Chillies",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Madame_Jeanette_and_other_chillies.jpg/960px-Madame_Jeanette_and_other_chillies.jpg",
+    image: "/green-chillies.png",
     color: "from-lime-50 to-green-100",
     accent: "#65a30d",
     desc: "Vibrant, fiery green chillies — adding India's signature heat to kitchens across the globe.",
@@ -74,9 +76,23 @@ export default function BVMGlobal() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", country: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
-  const heroRef = useRef(null);
+  const [lenisRef, setLenisRef] = useState(null);
 
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+      wheelMultiplier: 1.2,
+    });
+    setLenisRef(lenis);
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       const sections = ["home", "about", "products", "certifications", "why-us", "contact"];
@@ -90,12 +106,20 @@ export default function BVMGlobal() {
       }
     };
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      lenis.destroy();
+    };
   }, []);
 
   const scrollTo = (section) => {
     const ids = { Home: "home", About: "about", Products: "products", Certifications: "certifications", "Why Us": "why-us", Contact: "contact" };
-    document.getElementById(ids[section])?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(ids[section]);
+    if (el && lenisRef) {
+      lenisRef.scrollTo(el, { offset: -50 });
+    } else if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
     setMenuOpen(false);
   };
 
@@ -114,9 +138,9 @@ export default function BVMGlobal() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          background: scrolled ? "rgba(255,255,255,0.97)" : "transparent",
-          boxShadow: scrolled ? "0 2px 32px rgba(0,0,0,0.08)" : "none",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
+          background: scrolled ? "rgba(247,253,245,0.96)" : "transparent",
+          boxShadow: scrolled ? "0 2px 32px rgba(22,101,52,0.08)" : "none",
+          backdropFilter: scrolled ? "blur(14px)" : "none",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
@@ -134,8 +158,8 @@ export default function BVMGlobal() {
                 onClick={() => scrollTo(link)}
                 className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
                 style={{
-                  color: activeSection === link ? "#fff" : scrolled ? "#374151" : "rgba(255,255,255,0.9)",
-                  background: activeSection === link ? "linear-gradient(135deg,#2d6a2d,#5a9e2f)" : "transparent",
+                  color: activeSection === link ? "#fff" : "#14532d",
+                  background: activeSection === link ? "linear-gradient(135deg,#15803d,#22c55e)" : "transparent",
                 }}
               >
                 {link}
@@ -146,7 +170,7 @@ export default function BVMGlobal() {
           {/* Mobile hamburger */}
           <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)}>
             {[0, 1, 2].map((i) => (
-              <span key={i} className="block w-6 h-0.5 transition-all duration-300" style={{ background: scrolled ? "#1a2e1a" : "white" }} />
+              <span key={i} className="block w-6 h-0.5 transition-all duration-300" style={{ background: "#14532d" }} />
             ))}
           </button>
         </div>
@@ -164,67 +188,15 @@ export default function BVMGlobal() {
       </nav>
 
       {/* HERO */}
-      <section id="home" ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,#0d2e0d 0%,#1a4a1a 40%,#2d5a1b 70%,#3d7a20 100%)" }} />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80')", backgroundSize: "cover", backgroundPosition: "center" }} />
-        {/* Overlay gradient */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(13,46,13,0.75) 0%, rgba(13,46,13,0.5) 60%, rgba(13,46,13,0.85) 100%)" }} />
-
-        {/* Decorative circles */}
-        <div className="absolute top-20 right-20 w-96 h-96 rounded-full opacity-10 blur-3xl" style={{ background: "#5a9e2f" }} />
-        <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full opacity-10 blur-3xl" style={{ background: "#d4a72c" }} />
-
-        <div className="relative z-10 px-6 max-w-5xl mx-auto w-full pt-20 sm:pt-28">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium mb-8 border border-white/20" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }}>
-              🌍 Proudly Exporting From India
-            </div>
-            <h1 className="font-black text-5xl md:text-7xl leading-tight mb-6" style={{ color: "white", textShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
-              Naturally Fresh,
-              <br />
-              <span style={{ background: "linear-gradient(135deg,#a8e063,#f7dc6f)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Globally Delivered
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light" style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.8 }}>
-              Exporting premium Indian agricultural products worldwide while supporting local farmers and celebrating authentic flavors.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => scrollTo("Products")}
-                className="px-8 py-4 rounded-2xl font-semibold text-base transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                style={{ background: "linear-gradient(135deg,#5a9e2f,#2d6a2d)", color: "white", boxShadow: "0 8px 32px rgba(90,158,47,0.4)" }}
-              >
-                🌾 View Products
-              </button>
-              <button
-                onClick={() => scrollTo("Contact")}
-                className="px-8 py-4 rounded-2xl font-semibold text-base transition-all duration-300 hover:scale-105 border-2"
-                style={{ background: "rgba(255,255,255,0.1)", color: "white", borderColor: "rgba(255,255,255,0.4)", backdropFilter: "blur(8px)" }}
-              >
-                📞 Contact Us
-              </button>
-            </div>
-
-
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <div className="w-px h-12" style={{ background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.5))" }} />
-          <div className="w-4 h-4 rounded-full border-2 border-white/40" />
-        </div>
-      </section>
+      <Hero scrollTo={scrollTo} />
 
       {/* ABOUT */}
       <section id="about" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#5a9e2f" }}>Who We Are</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#1a2e1a" }}>About BVM Global</h2>
-            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#5a9e2f,#d4a72c)" }} />
+            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Who We Are</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>About BVM Global</h2>
+            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 items-center mb-16">
@@ -269,11 +241,11 @@ export default function BVMGlobal() {
               {/* Founder 1 */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden mb-6 border-4 border-green-50 shadow-md">
-                  <img src="/Gemini_Generated_Image_xiamspxiamspxiam.png" alt="Ashmit Shahu" className="w-full h-full object-cover" />
+                  <img src="/Gemini_Generated_Image_xiamspxiamspxiam.png" alt="Asmit Shahu" className="w-full h-full object-cover" />
                 </div>
-                <h4 className="text-xl font-bold text-[#1a2e1a]">Asmit Shahu</h4>
-                <p className="text-green-600 font-medium mb-3">Founder</p>
-                <p className="text-gray-500 text-sm leading-relaxed">Ashmit leads BVM Global with a vision to connect India's rich agricultural heritage with international markets, ensuring uncompromised quality.</p>
+                <h4 className="text-xl font-bold text-[#0f3d2e]">Asmit Shahu</h4>
+                <p className="font-medium mb-3" style={{ color: "#15803d" }}>Founder</p>
+                <p className="text-gray-500 text-sm leading-relaxed">Asmit leads BVM Global with a vision to connect India's rich agricultural heritage with international markets, ensuring uncompromised quality.</p>
               </div>
 
               {/* Founder 2 */}
@@ -281,8 +253,8 @@ export default function BVMGlobal() {
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden mb-6 border-4 border-green-50 shadow-md">
                   <img src="/Gemini_Generated_Image_z5bflnz5bflnz5bf.png" alt="Ujjwal Chaudhari" className="w-full h-full object-cover" />
                 </div>
-                <h4 className="text-xl font-bold text-[#1a2e1a]">Ujjwal Choudhary</h4>
-                <p className="text-green-600 font-medium mb-3">Co-Founder</p>
+                <h4 className="text-xl font-bold text-[#0f3d2e]">Ujjwal Choudhary</h4>
+                <p className="font-medium mb-3" style={{ color: "#15803d" }}>Founder</p>
                 <p className="text-gray-500 text-sm leading-relaxed">Passionate about reliable supply chains, Ujjwal ensures that every shipment meets the strictest global standards for freshness and compliance.</p>
               </div>
             </div>
@@ -294,9 +266,9 @@ export default function BVMGlobal() {
       <section id="products" className="py-28 px-6" style={{ background: "linear-gradient(180deg,#f8fdf4 0%,#fafaf7 100%)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#5a9e2f" }}>What We Export</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#1a2e1a" }}>Our Products</h2>
-            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#5a9e2f,#d4a72c)" }} />
+            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>What We Export</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>Our Products</h2>
+            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
             <p className="mt-4 text-gray-500 max-w-xl mx-auto">Farm-fresh, export-grade agricultural products from India's richest growing regions.</p>
           </div>
 
@@ -308,7 +280,15 @@ export default function BVMGlobal() {
               >
                 {/* Product visual */}
                 <div className="relative h-48 flex items-center justify-center overflow-hidden" style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2))` }}>
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://placehold.co/800x600/${p.accent.replace('#','')}22/15803d?text=${encodeURIComponent(p.name)}&font=poppins`;
+                    }}
+                  />
                   {/* Export badge */}
                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white" style={{ background: `linear-gradient(135deg,${p.accent},${p.accent}cc)` }}>
                     ✓ Export Grade
@@ -365,9 +345,9 @@ export default function BVMGlobal() {
       <section id="why-us" className="py-28 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#5a9e2f" }}>Our Advantage</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#1a2e1a" }}>Why Choose BVM Global</h2>
-            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#5a9e2f,#d4a72c)" }} />
+            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Our Advantage</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>Why Choose BVM Global</h2>
+            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -404,9 +384,9 @@ export default function BVMGlobal() {
       <section id="contact" className="py-28 px-6" style={{ background: "linear-gradient(180deg,#f8fdf4,#fafaf7)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#5a9e2f" }}>Get In Touch</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#1a2e1a" }}>Contact Us</h2>
-            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#5a9e2f,#d4a72c)" }} />
+            <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Get In Touch</span>
+            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>Contact Us</h2>
+            <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -419,7 +399,7 @@ export default function BVMGlobal() {
                 {[
                   { icon: "📧", label: "Email", value: "bvmglobal.impex@gmail.com" },
                   { icon: "📞", label: "Phone", value: "+91 9579240339" },
-                  { icon: "📍", label: "Location", value: "Bihar, India — Gateway to Global Markets" },
+                  { icon: "📍", label: "Location", value: "Nagpur, Maharashtra, India" },
                 ].map((c) => (
                   <div key={c.label} className="flex items-start gap-4 p-4 rounded-2xl" style={{ background: "white", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ background: "linear-gradient(135deg,#f0f9e8,#d4edba)" }}>{c.icon}</div>
@@ -487,7 +467,7 @@ export default function BVMGlobal() {
                   <button
                     type="submit"
                     className="w-full py-4 rounded-2xl font-semibold text-base transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                    style={{ background: "linear-gradient(135deg,#2d6a2d,#5a9e2f)", color: "white", boxShadow: "0 8px 24px rgba(45,106,45,0.35)" }}
+                    style={{ background: "linear-gradient(135deg,#15803d,#22c55e)", color: "white", boxShadow: "0 8px 24px rgba(22,163,74,0.30)" }}
                   >
                     🌾 Send Message
                   </button>
