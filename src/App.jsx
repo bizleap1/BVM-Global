@@ -191,11 +191,11 @@ export default function BVMGlobal() {
       <Hero scrollTo={scrollTo} />
 
       {/* ABOUT */}
-      <section id="about" className="py-28 px-6">
+      <section id="about" className="py-16 md:py-28 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Who We Are</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>About BVM Global</h2>
+            <h2 className="text-3xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>About BVM Global</h2>
             <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
@@ -217,7 +217,7 @@ export default function BVMGlobal() {
 
             <div>
               <h3 className="text-2xl font-bold mb-8" style={{ color: "#1a2e1a" }}>Our Core Values</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
                 {[
                   { icon: "⭐", title: "High Quality", desc: "Every product meets strict export-grade standards" },
                   { icon: "🌾", title: "Farmer Support", desc: "Empowering local farming communities" },
@@ -237,9 +237,9 @@ export default function BVMGlobal() {
           {/* Leadership Section */}
           <div className="mt-20">
             <h3 className="text-3xl font-black text-center mb-12" style={{ color: "#1a2e1a" }}>Our Leadership</h3>
-            <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {/* Founder 1 */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
+              <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden mb-6 border-4 border-green-50 shadow-md">
                   <img src="/Gemini_Generated_Image_xiamspxiamspxiam.png" alt="Asmit Shahu" className="w-full h-full object-cover" />
                 </div>
@@ -249,7 +249,7 @@ export default function BVMGlobal() {
               </div>
 
               {/* Founder 2 */}
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
+              <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-100 text-center hover:-translate-y-2 transition-transform duration-300">
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden mb-6 border-4 border-green-50 shadow-md">
                   <img src="/Gemini_Generated_Image_z5bflnz5bflnz5bf.png" alt="Ujjwal Chaudhari" className="w-full h-full object-cover" />
                 </div>
@@ -263,7 +263,7 @@ export default function BVMGlobal() {
       </section>
 
       {/* PRODUCTS */}
-      <section id="products" className="py-28 px-6" style={{ background: "linear-gradient(180deg,#f8fdf4 0%,#fafaf7 100%)" }}>
+      <section id="products" className="py-16 md:py-28 px-4 md:px-6" style={{ background: "linear-gradient(180deg,#f8fdf4 0%,#fafaf7 100%)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>What We Export</span>
@@ -320,7 +320,7 @@ export default function BVMGlobal() {
       </section>
 
       {/* CERTIFICATIONS */}
-      <section id="certifications" className="py-28 px-6" style={{ background: "linear-gradient(135deg,#0d2e0d,#1a4a1a)" }}>
+      <section id="certifications" className="py-16 md:py-28 px-4 md:px-6" style={{ background: "linear-gradient(135deg,#0d2e0d,#1a4a1a)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#a8e063" }}>Trust & Compliance</span>
@@ -342,7 +342,7 @@ export default function BVMGlobal() {
       </section>
 
       {/* WHY US */}
-      <section id="why-us" className="py-28 px-6">
+      <section id="why-us" className="py-16 md:py-28 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Our Advantage</span>
@@ -350,7 +350,7 @@ export default function BVMGlobal() {
             <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
             {WHY_US.map((w, i) => (
               <div key={w.title} className="group p-6 rounded-3xl text-center border transition-all duration-300 hover:shadow-xl hover:-translate-y-2" style={{ background: "white", borderColor: "#e8f5e0" }}>
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" style={{ background: "linear-gradient(135deg,#f0f9e8,#d4edba)" }}>
@@ -363,11 +363,11 @@ export default function BVMGlobal() {
           </div>
 
           {/* Banner */}
-          <div className="mt-16 rounded-3xl p-10 text-center relative overflow-hidden" style={{ background: "linear-gradient(135deg,#2d6a2d,#5a9e2f)" }}>
+          <div className="mt-12 md:mt-16 rounded-2xl md:rounded-3xl p-7 md:p-10 text-center relative overflow-hidden" style={{ background: "linear-gradient(135deg,#2d6a2d,#5a9e2f)" }}>
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
             <div className="relative z-10">
-              <h3 className="text-3xl font-black text-white mb-4">Ready to source from India?</h3>
-              <p className="text-white/80 mb-8 max-w-lg mx-auto">Partner with BVM Global and get access to premium quality Indian agricultural exports with complete compliance and traceability.</p>
+              <h3 className="text-2xl md:text-3xl font-black text-white mb-3 md:mb-4">Ready to source from India?</h3>
+              <p className="text-white/80 mb-6 md:mb-8 max-w-lg mx-auto text-sm md:text-base">Partner with BVM Global and get access to premium quality Indian agricultural exports with complete compliance and traceability.</p>
               <button
                 onClick={() => scrollTo("Contact")}
                 className="px-10 py-4 rounded-2xl font-semibold text-base transition-all duration-300 hover:scale-105"
@@ -381,11 +381,11 @@ export default function BVMGlobal() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="py-28 px-6" style={{ background: "linear-gradient(180deg,#f8fdf4,#fafaf7)" }}>
+      <section id="contact" className="py-16 md:py-28 px-4 md:px-6" style={{ background: "linear-gradient(180deg,#f8fdf4,#fafaf7)" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-semibold tracking-widest uppercase" style={{ color: "#15803d" }}>Get In Touch</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>Contact Us</h2>
+            <h2 className="text-3xl md:text-5xl font-black mt-2" style={{ color: "#0f3d2e" }}>Contact Us</h2>
             <div className="w-16 h-1 rounded-full mx-auto mt-4" style={{ background: "linear-gradient(90deg,#15803d,#22c55e)" }} />
           </div>
 
@@ -479,7 +479,7 @@ export default function BVMGlobal() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#0a1f0a" }} className="py-16 px-6">
+      <footer style={{ background: "#0a1f0a" }} className="py-12 md:py-16 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
             {/* Brand */}

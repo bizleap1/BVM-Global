@@ -265,7 +265,7 @@ export default function Hero({ scrollTo }) {
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex items-center justify-center h-[100vh] min-h-[700px] overflow-hidden"
+      className="relative flex items-center justify-center min-h-screen overflow-hidden"
       style={{ backgroundColor: '#f0fdf4' }}
     >
       {/* ── Background base */}
@@ -317,24 +317,24 @@ export default function Hero({ scrollTo }) {
       </motion.div>
 
       {/* ── Main content: two-column grid */}
-      <div ref={contentRef} className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-24 pb-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+      <div ref={contentRef} className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-24 pb-16 flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
 
         {/* LEFT: Text + CTA */}
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left w-full">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8 border shadow-sm"
-            style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(12px)', borderColor: 'rgba(22,101,52,0.18)', color: '#14532d' }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 border shadow-sm text-xs sm:text-sm"
+            style={{ background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)', borderColor: 'rgba(22,101,52,0.18)', color: '#14532d' }}
           >
             <Award className="w-4 h-4 text-[#16a34a]" />
             <span className="text-sm font-semibold tracking-wide uppercase">Trusted Global Exporter</span>
           </motion.div>
 
           {/* Headline */}
-          <h1 className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] leading-[1.08] tracking-tight mb-5 text-[#0f3d2e]">
+          <h1 className="font-extrabold text-[2.2rem] sm:text-5xl md:text-6xl lg:text-[4rem] leading-[1.08] tracking-tight mb-4 text-[#0f3d2e]">
             {words.map((word, i) => {
               const accent = word === 'Globally' || word === 'Delivered';
               return (
@@ -358,7 +358,7 @@ export default function Hero({ scrollTo }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-sm md:text-base lg:text-lg leading-relaxed max-w-xl mb-8 font-medium"
+            className="text-sm md:text-base lg:text-lg leading-relaxed max-w-xl mb-6 font-medium"
             style={{ color: 'rgba(15,61,46,0.68)' }}
           >
             Exporting premium Indian agricultural products worldwide while supporting local farmers and celebrating authentic flavors.
@@ -390,7 +390,7 @@ export default function Hero({ scrollTo }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto"
           >
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(22,163,74,0.35)' }}
@@ -415,12 +415,12 @@ export default function Hero({ scrollTo }) {
           </motion.div>
         </div>
 
-        {/* RIGHT: Animated Map + Chart Card — visible on all screens, stacked below on mobile */}
+        {/* RIGHT: Map + Chart — desktop only */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-4"
+          className="hidden lg:flex flex-col gap-4"
         >
           {/* World Map Card */}
           <motion.div
