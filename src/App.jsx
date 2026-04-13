@@ -7,7 +7,7 @@ const NAV_LINKS = ["Home", "About", "Products", "Certifications", "Why Us", "Con
 const PRODUCTS = [
   {
     name: "Makhana (Fox Nuts)",
-    image: "/makhana.png",
+    image: "/makhana.jpg",
     color: "from-amber-50 to-amber-100",
     accent: "#d97706",
     desc: "Hand-harvested lotus seeds from Bihar's pristine lakes — crunchy, nutritious, and globally prized.",
@@ -31,7 +31,7 @@ const PRODUCTS = [
   },
   {
     name: "Alphonso Mangoes",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Mangos_-_single_and_halved.jpg/960px-Mangos_-_single_and_halved.jpg",
+    image: "/alphonso-mangoes.jpg",
     color: "from-yellow-50 to-orange-100",
     accent: "#ea580c",
     desc: "The king of fruits — Alphonso mangoes bursting with sweetness, aroma, and pure Indian sunshine.",
@@ -39,7 +39,7 @@ const PRODUCTS = [
   },
   {
     name: "Drumstick (Moringa)",
-    image: "/drumstick.png",
+    image: "/drumstick.jpg",
     color: "from-green-50 to-emerald-100",
     accent: "#059669",
     desc: "Nutrient-dense Moringa pods — nature's superfood grown sustainably across India's heartland.",
@@ -47,7 +47,7 @@ const PRODUCTS = [
   },
   {
     name: "Green Chillies",
-    image: "/green-chillies.png",
+    image: "/green-chillies.jpg",
     color: "from-lime-50 to-green-100",
     accent: "#65a30d",
     desc: "Vibrant, fiery green chillies — adding India's signature heat to kitchens across the globe.",

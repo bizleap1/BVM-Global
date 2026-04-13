@@ -374,7 +374,6 @@ export default function Hero({ scrollTo }) {
             {[
               { val: 30, suffix: '+', label: 'Countries' },
               { val: 98, suffix: '%', label: 'On-time delivery' },
-              { val: 5, suffix: '+', label: 'Years exporting' },
             ].map((s) => (
               <div key={s.label} className="flex flex-col">
                 <span className="text-2xl font-extrabold text-[#15803d]">
