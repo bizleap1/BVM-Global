@@ -528,10 +528,21 @@ export default function BVMGlobal() {
           </div>
 
           <div className="border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-            <div className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
-              © 2025 BVM Global. All rights reserved. | Made with 💚 in India
+            <div className="text-sm text-center md:text-left" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <p>© 2025 BVM Global. All rights reserved. | Made with 💚 in India</p>
+              <p className="mt-2">
+                Developed and Managed by{' '}
+                <a
+                  href="https://bizleap.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-500 hover:underline font-semibold"
+                >
+                  BIZLEAP
+                </a>
+              </p>
             </div>
-            <div className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
+            <div className="text-xs text-center md:text-right" style={{ color: "rgba(255,255,255,0.25)" }}>
               DGFT Registered · MSME Certified · APEDA Approved
             </div>
           </div>
